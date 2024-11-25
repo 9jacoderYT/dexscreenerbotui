@@ -1,0 +1,21 @@
+{
+  "name": "astronewsbotui",
+  "version": "1.0.0",
+  "description": "Astro crypto news ui",
+  "main": "bot.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "firebase": "^11.0.2",
+    "nodemon": "^3.1.7",
+    "telegraf": "^4.16.3"
+  }
+}
