@@ -93,6 +93,7 @@ bot.action(/^SIGNALS_TOGGLE_(ON|OFF)$/, handleSignalToggle);
 bot.action(/SOLANA_MENU/, handleSolanaMenu);
 bot.action(/^SOLANA_TOGGLE_(ON|OFF)$/, handleTrendingToggle);
 
+
 //Premium
 bot.action(/PREMIUM/, handlePremium);
 bot.action(/^PAYMENT_(\d+)$/, async (ctx) => {
