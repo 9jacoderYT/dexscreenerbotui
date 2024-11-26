@@ -102,14 +102,14 @@ bot.action(/^PAYMENT_(\d+)$/, async (ctx) => {
   await handlePayment(ctx, parseInt(amount));
 });
 
-// bot.launch();
+ bot.launch();
 
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
-bot.launch({
-  webhook: {
-    domain: "https://astrobullishbot.vercel.app", // This should be your Vercel domain
-    port: PORT,
-  },
-});
+// bot.launch({
+//   webhook: {
+//     domain: "https://astrobullishbot.vercel.app", // This should be your Vercel domain
+//     port: PORT,
+//   },
+// });
