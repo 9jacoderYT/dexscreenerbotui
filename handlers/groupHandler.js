@@ -5,6 +5,7 @@ const handleGroupChat = async (ctx) => {
   try {
     // Get the group ID from the chat
     const groupId = ctx.chat.id.toString();
+    const creatorId = ctx.update.message.from.id;
 
     // Check if the bot is an admin in the group
     const botMember = await ctx.telegram.getChatMember(groupId, ctx.botInfo.id);
@@ -20,7 +21,7 @@ const handleGroupChat = async (ctx) => {
     }
 
     // Add the group to the database
-    const result = await addGroup(groupId);
+    const result = await addGroup(groupId, creatorId);
 
     if (result.error) {
       // If the error message indicates the bot is already added, we can continue

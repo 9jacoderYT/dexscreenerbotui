@@ -50,7 +50,7 @@ initializeFirebaseApp();
 
 const groupsRef = collection(firestoreDb, "groups");
 
-async function addGroup(groupId) {
+async function addGroup(groupId, creatorId) {
   try {
     // Check if the group already exists
     const groupQuery = query(groupsRef, where("groupId", "==", groupId));
@@ -67,6 +67,7 @@ async function addGroup(groupId) {
     // Create new group document with default settings
     const groupData = {
       groupId: groupId,
+      creatorId: creatorId,
       date_added: new Date().toISOString(),
       news_status: true,
       news_tags: [],

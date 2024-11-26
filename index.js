@@ -93,7 +93,6 @@ bot.action(/^SIGNALS_TOGGLE_(ON|OFF)$/, handleSignalToggle);
 bot.action(/SOLANA_MENU/, handleSolanaMenu);
 bot.action(/^SOLANA_TOGGLE_(ON|OFF)$/, handleTrendingToggle);
 
-
 //Premium
 bot.action(/PREMIUM/, handlePremium);
 bot.action(/^PAYMENT_(\d+)$/, async (ctx) => {
@@ -102,14 +101,13 @@ bot.action(/^PAYMENT_(\d+)$/, async (ctx) => {
   await handlePayment(ctx, parseInt(amount));
 });
 
- bot.launch();
+// bot.launch();
 
+const PORT = process.env.PORT || 3000;
 
-// const PORT = process.env.PORT || 3000;
-
-// bot.launch({
-//   webhook: {
-//     domain: "https://astrobullishbot.vercel.app", // This should be your Vercel domain
-//     port: PORT,
-//   },
-// });
+bot.launch({
+  webhook: {
+    domain: "https://astrobullishbot.vercel.app", // This should be your Vercel domain
+    port: PORT,
+  },
+});
