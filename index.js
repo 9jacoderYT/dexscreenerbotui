@@ -66,15 +66,13 @@ bot.command("start", async (ctx) => {
   }
 });
 
+// bot.launch();
 
+const PORT = process.env.PORT || 3000;
 
- bot.launch();
-
-// const PORT = process.env.PORT || 3000;
-
-// bot.launch({
-//   webhook: {
-//     domain: "https://dexscreenerbotui.vercel.app", // This should be your Vercel domain
-//     port: PORT,
-//   },
-// });
+bot.launch({
+  webhook: {
+    domain: "https://dexscreenerbotui.vercel.app", // This should be your Vercel domain
+    port: PORT,
+  },
+});

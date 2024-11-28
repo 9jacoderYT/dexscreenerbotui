@@ -44,6 +44,7 @@ const handleChannelChat = async (ctx) => {
     // If everything is successful, send the welcome message
     const randomGreeting =
       greetings[Math.floor(Math.random() * greetings.length)];
+      
     await ctx.reply(`${randomGreeting} ${channelMsg}`);
   } catch (error) {
     console.error("Error in handleGroupChat:", error);
