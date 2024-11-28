@@ -48,7 +48,7 @@ const initializeFirebaseApp = () => {
 
 initializeFirebaseApp();
 
-const groupsRef = collection(firestoreDb, "groups");
+const groupsRef = collection(firestoreDb, "dexgroups");
 
 async function addGroup(groupId, creatorId) {
   try {
@@ -68,16 +68,10 @@ async function addGroup(groupId, creatorId) {
     const groupData = {
       groupId: groupId,
       creatorId: creatorId,
-      date_added: new Date().toISOString(),
-      news_status: true,
-      news_tags: [],
-      trending_status: true,
-      trending_tags: [],
-      signals_status: true,
-      signals_tags: [],
-      premium_status: false,
-      premium_end: 0,
-      tags: [],
+      date_added: new Date(),
+      alerts: true,
+      ads: true,
+      end_ads: 0,
     };
 
     // Add the new group to Firestore
@@ -101,7 +95,7 @@ async function addGroup(groupId, creatorId) {
 async function getGroupDetails(groupId) {
   try {
     // Get reference to the specific group document
-    const groupRef = doc(firestoreDb, "groups", groupId.toString());
+    const groupRef = doc(firestoreDb, "dexgroups", groupId.toString());
 
     // Fetch the document
     const groupSnap = await getDoc(groupRef);

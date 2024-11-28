@@ -1,5 +1,6 @@
 const { handlePrivateChat } = require("../handlers/privateHandler");
 const { handleGroupChat } = require("../handlers/groupHandler");
+const { handleChannelChat } = require("../handlers/channelHandler");
 
 const handleStart = async (ctx) => {
   try {
@@ -9,9 +10,10 @@ const handleStart = async (ctx) => {
         break;
       case "group":
       case "supergroup":
-      case "channel":
         await handleGroupChat(ctx);
         break;
+      case "channel":
+        await handleChannelChat(ctx);
       default:
         console.log(`Unknown chat type: ${ctx.chat.type}`);
     }

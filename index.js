@@ -35,6 +35,8 @@ bot.use(
 
 // Anti-spam middleware
 bot.use(async (ctx, next) => {
+  channelMode();
+
   // Skip for non-group chats and non-command messages
   if (ctx.chat?.type === "private" || !ctx.message?.text?.startsWith("/")) {
     return next();
@@ -54,30 +56,51 @@ bot.use(channelMode());
 
 // Commands
 bot.command("start", async (ctx) => {
-  if (ctx.chat.type === "private") {
-    // Handle private chat normally
-    return handleStart(ctx);
-  }
-  // For groups, only allow admins to use /start
-  const member = await ctx.telegram.getChatMember(ctx.chat.id, ctx.from.id);
-  if (["creator", "administrator"].includes(member.status)) {
-    return handleStart(ctx);
+  switch (ctx.chat.type) {
+    case "private":
+      return handleStart(ctx);
+
+    case "group":
+    case "supergroup":
+      const member = await ctx.telegram.getChatMember(ctx.chat.id, ctx.from.id);
+      if (["creator", "administrator"].includes(member.status)) {
+        return handleStart(ctx);
+      }
+      break;
+
+    case "channel":
+      return handleStart(ctx);
+
+    default:
+      console.log(`Unknown chat type: ${ctx.chat.type}`);
+      break;
   }
 });
 
-bot.command("settings", async (ctx) => {
-  // Settings command should only work for admins in groups
-  if (ctx.chat.type === "private") {
-    return handleSettings(ctx);
-  }
+// bot.command("settings", async (ctx) => {
+//   // Settings command should only work for admins in groups
 
-  const member = await ctx.telegram.getChatMember(ctx.chat.id, ctx.from.id);
-  if (["creator", "administrator"].includes(member.status)) {
-    return handleSettings(ctx);
-  }
-});
+//   switch (ctx.chat.type) {
+//     case "private":
+//       return handleSettings(ctx);
 
-bot.command("features", handleFeatures);
+//     case "group":
+//     case "supergroup":
+//       const member = await ctx.telegram.getChatMember(ctx.chat.id, ctx.from.id);
+//       if (["creator", "administrator"].includes(member.status)) {
+//         return handleSettings(ctx);
+//       }
+//       break;
+
+//     case "channel":
+//       return handleSettings(ctx);
+//     default:
+//       console.log(`Unknown chat type: ${ctx.chat.type}`);
+//       break;
+//   }
+// });
+
+// bot.command("features", handleFeatures);
 
 bot.action(/SETTINGS_MENU/, settingsMenu);
 
@@ -101,13 +124,13 @@ bot.action(/^PAYMENT_(\d+)$/, async (ctx) => {
   await handlePayment(ctx, parseInt(amount));
 });
 
-// bot.launch();
+bot.launch();
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
-bot.launch({
-  webhook: {
-    domain: "https://astrobullishbot.vercel.app", // This should be your Vercel domain
-    port: PORT,
-  },
-});
+// bot.launch({
+//   webhook: {
+//     domain: "https://astrobullishbot.vercel.app", // This should be your Vercel domain
+//     port: PORT,
+//   },
+// });
