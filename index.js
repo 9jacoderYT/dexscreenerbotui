@@ -126,13 +126,13 @@ bot.action(/^PAYMENT_(\d+)$/, async (ctx) => {
 });
 */
 
-// bot.launch();
+ bot.launch();
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
-bot.launch({
-  webhook: {
-    domain: "https://dexscreenerbotui.vercel.app", // This should be your Vercel domain
-    port: PORT,
-  },
-});
+// bot.launch({
+//   webhook: {
+//     domain: "https://dexscreenerbotui.vercel.app", // This should be your Vercel domain
+//     port: PORT,
+//   },
+// });
