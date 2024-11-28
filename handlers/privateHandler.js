@@ -25,12 +25,28 @@ const handlePrivateChat = async (ctx) => {
       (ctx.from.username && `@${ctx.from.username}`) ||
       "there";
 
-    await ctx.reply(
-      `${randomGreeting} ${userIdentifier}! \n\n ${randomIntroduction} \n ${privateMsg}`,
-      {
-        reply_markup: mainKeyboard(ctx.botInfo.username),
-      }
-    );
+    const customMsg = `
+👋 Welcome to Dexscreener Listing Alert Bot!
+
+🔍 Discover the Hidden Gems on Dexscreener—featuring verified tokens with complete social media links!
+
+✨ Be among the first to spot the next big opportunity and find your true diamond.
+
+🚀 Get Started:
+Add me to your group.
+Type /start@dexscreener_listing_bot to begin!
+`;
+
+    await ctx.reply(`${customMsg}`, {
+      reply_markup: mainKeyboard(ctx.botInfo.username),
+    });
+
+    // await ctx.reply(
+    //   `${randomGreeting} ${userIdentifier}! \n\n ${randomIntroduction} \n ${privateMsg}`,
+    //   {
+    //     reply_markup: mainKeyboard(ctx.botInfo.username),
+    //   }
+    // );
   } catch (error) {
     console.error("Error in private chat handler:", error);
     await ctx.reply("Sorry, something went wrong.");
